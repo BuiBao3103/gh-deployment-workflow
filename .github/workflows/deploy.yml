@@ -2,17 +2,18 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
-    paths:
-      - 'index.html'  # Trigger only when index.html is changed
+    branches: ["main"]
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   deploy:
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
+
     runs-on: ubuntu-latest
 
     steps:
@@ -25,7 +26,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'  # Uploads the root directory (make sure index.html is here)
+          path: "." # Uploads the root directory (make sure index.html is here)
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
